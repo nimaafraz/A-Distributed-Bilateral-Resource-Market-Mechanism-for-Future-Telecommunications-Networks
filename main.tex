@@ -3,6 +3,7 @@
 % The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
+% \usepackage{showframe}
 % \usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{float}
@@ -59,12 +60,20 @@ We first describe the manual cycle of these business processes and the challenge
 
 
 \section{Distributed Resource Market Model}
-Network sharing lowers the cost of network roll-out by preventing the costly duplication of network infrastructure. The traditional roles of an infrastructure provider and VNOs are being challenged with new market players such as OTTs and vertical market services (e.g., automotive, e-health, etc.) which are considered to be the major revenue generation sources for future 5G networks.
+Distributed markets have been previously studied in contexts such as Etereum-based advertising marketplaces \cite{Ranganthan2018ADM}. In this paper, we focus on a market model for network resources concerning
+network sharing which lowers the cost of network roll-out by preventing the costly duplication of network infrastructure. The traditional roles of an infrastructure provider and VNOs are being challenged with new market players such as OTTs and vertical market services (e.g., automotive, e-health, etc.) which are considered to be the major revenue generation sources for future 5G networks.
 These are typically scenarios where network investment and 5G deployment would be very costly or unattractive for legacy operators, but verticals expect instead significant advantage (i.e. there is a large private value for specific applications that require 5G type of connectivity).
 
-Moving from conventional static sharing towards on-demand/on-the-fly dynamic multi-tenancy \cite{7514161} requires a network sharing management architecture that enables capacity brokering.
+Moving from conventional static sharing towards on-demand/on-the-fly dynamic multi-tenancy \cite{7514161} requires a network sharing management architecture that enables capacity brokering. To understand the importance of automating such bilateral market business processes it is necessary to know how the current process works.
 
-To understand the importance of automating such bilateral market business processes it is necessary to know how the current process works.
+\begin{figure*}
+    \centering
+    \includegraphics[width=0.99\textwidth]{figs/f-wide.pdf}
+    \caption{The Blockchain Transaction Flow}
+    \label{fig:flow}
+\end{figure*}
+
+
 A bilateral trade market is a business environment where multiple traders in both seller and buyer roles can exchange commodities (e.g., network resources). Furthermore, in this work, we will allow the traders to change their role in the market (i.e., seller or buyer) depending on their current excess/demand of resources.
 A typical bilateral market trade can involve: 
 \begin{itemize}
@@ -93,12 +102,13 @@ Therefore, we propose a new distributed model for bilateral trade markets, which
 
 The transaction flow is illustrated in Fig.  \ref{fig:flow}. The application sends the transaction proposal to the orderer, to be broadcast to the peers in the channel. A transaction in the context of this paper is the process of receiving the bids/asks from the traders and conducting the double auction, matching eligible sellers and buyers and issuing the results of the resource allocation. The peers proceed with the endorsement of the transactions (i.e., the auction) based on the predefined endorsement policy. The endorsed transaction is then returned to the application and sent to the orderer to finalize the ordering of the transactions into a block (using one of the consensus protocols available, e.g., Solo, Kafka, Raft).
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.49\textwidth]{figs/Fig.pdf}
-    \caption{The blockchain transaction flow}
-    \label{fig:flow}
-\end{figure}
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=0.49\textwidth]{figs/Fig.pdf}
+%     \caption{The blockchain transaction flow}
+%     \label{fig:flow}
+% \end{figure}
+
 
 \section{Application of Blockchain to private markets}
 Blockchain is a tool that provides a novel record-keeping method that is distributed, transparent, immutable, and anonymous. As a concept, blockchain challenges the blind trust on the numerous central authorities who are currently in charge of vital and critical transactions among users and enterprises. 
@@ -145,8 +155,74 @@ A Fabric network consists of multiple components including the following:
 
 
 \subsection{Performance Criteria}
-A blockchain application operates over an underlying network of different components. The performance of the application is closely tied to the performance of each component (e.g., peers, orderers, containers, etc.) and the network that interconnects them. The performance of a blockchain application/network can be measured using the following metrics:
+A blockchain application operates over an underlying network of different components. In \cite{10.1007/978-3-030-16946-6_5,10.1007/978-3-662-58820-8_18} the authors have proposed different distributed auction mechanisms over an Ethereum network and analyzed the performance/cost of their implementation in terms of estimated gas costs and time efficiency. 
 
+In the context of Hyperledger blockchain frameworks the performance of the application is closely tied to the performance of each component (e.g., peers, orderers, containers, etc.) and the network that interconnects them. The performance of a blockchain application/network can be measured using the following metrics:
+
+\begin{figure*}[h]
+% \vspace{-7mm}
+\centering
+\begin{subfigure}{0.95\columnwidth}
+\includegraphics[width=\columnwidth]{figs/min.eps}%
+\caption{Minimum Transaction Latency}%
+\label{latency_min}%
+\end{subfigure}\hfill%
+\begin{subfigure}{0.95\columnwidth}
+\includegraphics[width=\columnwidth]{figs/avg.eps}%
+\caption{Average Transaction Latency}%
+\label{latency_avg}%
+\end{subfigure}\hfill%
+% \vspace{7mm}
+\begin{subfigure}{0.95\columnwidth}
+\includegraphics[width=\columnwidth]{figs/max.eps}%
+\caption{Maximum Transaction Latency}%
+\label{latency_max}%
+\end{subfigure}\hfill%
+\begin{subfigure}{0.95\columnwidth}
+\includegraphics[width=\columnwidth]{figs/tps.eps}%
+\caption{Input vs. Real Transaction Throughput}
+\label{fig:TPS}
+\end{subfigure}\hfill%
+\caption{Benchmark Results on Different Virtual Machine Instances}
+\label{latency}%
+% \vspace{-9mm}
+\end{figure*}[h]
+
+% \begin{figure*}[h]
+% % \vspace{-7mm}
+% \centering
+% \begin{subfigure}{\columnwidth}
+% \includegraphics[width=\columnwidth]{figs/min.eps}%
+% \caption{Unbalanced}%
+% \label{fig:Utilization:unbalanced}%
+% \end{subfigure}\hfill%
+% \begin{subfigure}{\columnwidth}
+% \includegraphics[width=\columnwidth]{figs/avg.eps}%
+% \caption{Balanced}%
+% \label{fig:Utilization:balanced}%
+% \end{subfigure}\hfill%
+% \caption{Multi-Tenant PON Utilization}
+% \label{fig:Utilization}%
+% \vspace{-3mm}
+% \end{figure*}
+
+% \begin{figure*}[h]
+% % \vspace{-7mm}
+% \centering
+% \begin{subfigure}{\columnwidth}
+% \includegraphics[width=\columnwidth]{figs/max.eps}%
+% \caption{Unbalanced}%
+% \label{fig:utility:unbalanced}%
+% \end{subfigure}\hfill%
+% \begin{subfigure}{\columnwidth}
+% \includegraphics[width=\columnwidth]{figs/tps.eps}%
+% \caption{Balanced}%
+% \label{fig:utility:balanced}%
+% \end{subfigure}\hfill%
+% \caption{Utility Distribution in the Marketplace}
+% \label{fig:utility}%
+% \vspace{-3mm}
+% \end{figure*}
 \begin{itemize}
     \item Transaction Throughput, measured in transactions per second (TPS):
     The number of transactions that are processed by the blockchain and written on the ledger in a given second.
@@ -167,7 +243,6 @@ A blockchain application operates over an underlying network of different compon
     \end{equation}
 
 
-
     \item Computing Intensity:
     The amount of computing resources consumed by the blockchain throughout the operating time, including the processing power, memory, storage, I/O and network. This metric is of great importance as it could determine the cost efficiency of a blockchain application. Furthermore, besides the capital expenditure for providing the computing capacity, blockchain networks could require huge amounts of energy to operate. Therefore, the computing intensity would also affect the operation costs of the blockchain.
     
@@ -178,34 +253,6 @@ In the next section, we introduce a benchmark tool that enables the measurement 
 
 
 
-\begin{figure*}
-% \vspace{-7mm}
-\centering
-\begin{subfigure}{0.99\columnwidth}
-\includegraphics[width=\columnwidth]{figs/min.eps}%
-\caption{Minimum Transaction Latency}%
-\label{latency_min}%
-\end{subfigure}\hfill%
-\begin{subfigure}{0.99\columnwidth}
-\includegraphics[width=\columnwidth]{figs/avg.eps}%
-\caption{Average Transaction Latency}%
-\label{latency_avg}%
-\end{subfigure}\hfill%
-\vspace{7mm}
-\begin{subfigure}{0.99\columnwidth}
-\includegraphics[width=\columnwidth]{figs/max.eps}%
-\caption{Maximum Transaction Latency}%
-\label{latency_max}%
-\end{subfigure}\hfill%
-\begin{subfigure}{0.99\columnwidth}
-\includegraphics[width=\columnwidth]{figs/tps.eps}
-\caption{Input vs. Real Transaction Throughput}
-\label{fig:TPS}
-\end{subfigure}\hfill%
-\caption{Benchmark results on different virtual machine instances}
-\label{latency}%
-% \vspace{-9mm}
-\end{figure*}
 
 \section{Results}
 
@@ -235,7 +282,8 @@ Fig. \ref{fig:TPS} illustrates the performance of the blockchain application by 
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.49\textwidth]{figs/cpu.eps}
+    \includegraphics[width=0.47\textwidth]{figs/cpu.eps}
+    \vspace{1mm}
     \caption{CPU Performance of the Blockchain Application}
     \label{fig:cpu}
 \end{figure}
@@ -260,42 +308,42 @@ Financial support from Science Foundation Ireland grants 14/IA/252 (O'SHARE) and
 
 
 
-\begin{figure*}
-% \vspace{-7mm}
-\centering
-\begin{subfigure}{0.99\columnwidth}
-\includegraphics[width=\columnwidth]{figs/minLoad.eps}%
-\caption{Minimum Transaction Latency}%
-\label{latency_min}%
-\end{subfigure}\hfill%
-\begin{subfigure}{0.99\columnwidth}
-\includegraphics[width=\columnwidth]{figs/avgLoad.eps}%
-\caption{Average Transaction Latency}%
-\label{latency_avg}%
-\end{subfigure}\hfill%
-\vspace{7mm}
-\begin{subfigure}{0.99\columnwidth}
-\includegraphics[width=\columnwidth]{figs/maxLoad.eps}%
-\caption{Maximum Transaction Latency}%
-\label{latency_max}%
-\end{subfigure}\hfill%
-\begin{subfigure}{0.99\columnwidth}
-\includegraphics[width=\columnwidth]{figs/tpsLoad.eps}
-\caption{Input vs. Real Transaction Throughput}
-\label{fig:TPS}
-\end{subfigure}\hfill%
-\caption{Benchmark results on different virtual machine instances}
-\label{latency}%
-% \vspace{-9mm}
-\end{figure*}
+% \begin{figure*}
+% % \vspace{-7mm}
+% \centering
+% \begin{subfigure}{0.99\columnwidth}
+% \includegraphics[width=\columnwidth]{figs/minLoad.eps}%
+% \caption{Minimum Transaction Latency}%
+% \label{latency_min}%
+% \end{subfigure}\hfill%
+% \begin{subfigure}{0.99\columnwidth}
+% \includegraphics[width=\columnwidth]{figs/avgLoad.eps}%
+% \caption{Average Transaction Latency}%
+% \label{latency_avg}%
+% \end{subfigure}\hfill%
+% \vspace{7mm}
+% \begin{subfigure}{0.99\columnwidth}
+% \includegraphics[width=\columnwidth]{figs/maxLoad.eps}%
+% \caption{Maximum Transaction Latency}%
+% \label{latency_max}%
+% \end{subfigure}\hfill%
+% \begin{subfigure}{0.99\columnwidth}
+% \includegraphics[width=\columnwidth]{figs/tpsLoad.eps}
+% \caption{Input vs. Real Transaction Throughput}
+% \label{fig:TPS}
+% \end{subfigure}\hfill%
+% \caption{Benchmark Results on Different Virtual Machine Instances}
+% \label{latency}%
+% % \vspace{-9mm}
+% \end{figure*}
 
 
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.49\textwidth]{figs/percentage.eps}
-    \caption{Percentage of satisfied transactions out of submitted}
-    \label{fig:cpu}
-\end{figure}
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=0.49\textwidth]{figs/percentage.eps}
+%     \caption{Percentage of Satisfied Transactions out of Submitted}
+%     \label{fig:cpu}
+% \end{figure}
 
 \end{document}
